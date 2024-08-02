@@ -7,12 +7,16 @@ class MainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-       width: 150,
+      margin:const EdgeInsets.symmetric(horizontal: 10),
+       width: 130,
        height: 250,
-               
-                  decoration: BoxDecoration(
-                    borderRadius: constantRadius,
-                    image:const DecorationImage(image: NetworkImage('https://media.themoviedb.org/t/p/w220_and_h330_face/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg'))),
+
+
+    decoration: BoxDecoration(
+       borderRadius: constantRadius,
+           image:const DecorationImage(
+               fit: BoxFit.cover,
+              image: NetworkImage('https://media.themoviedb.org/t/p/w220_and_h330_face/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg'))),
     );
   }
 }

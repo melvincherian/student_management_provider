@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
     debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Netflix Clone',
       theme: ThemeData(
        appBarTheme:const AppBarTheme(
         backgroundColor: Colors.transparent,
