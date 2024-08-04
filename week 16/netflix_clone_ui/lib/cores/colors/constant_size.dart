@@ -26,3 +26,8 @@ TextStyle constantHometitletext=const TextStyle(
 const newAndHotTempImage="https://media.themoviedb.org/t/p/w355_and_h200_multi_faces/A4JG9mkAjOQ3XNJy2oji1Jr224R.jpg";
 
 const newAndHotTempImage2="https://media.themoviedb.org/t/p/w355_and_h200_multi_faces/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg";
+String imageBase = 'https://image.tmdb.org/t/p/w500/'; 
+
+
+
+// const kmainImage='https://m.media-amazon.com/images/M/MV5BM2QzMGVkNjUtN2Y4Yi00ODMwLTg3YzktYzUxYjJlNjFjNDY1XkEyXkFqcGc@._V1_FMjpg_UY1920_.jpg';

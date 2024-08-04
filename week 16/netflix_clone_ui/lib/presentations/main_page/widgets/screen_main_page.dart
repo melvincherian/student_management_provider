@@ -8,30 +8,29 @@ import 'package:netflix_clone_ui/presentations/new_and_hot/screen_new_and_hot.da
 import 'package:netflix_clone_ui/presentations/search/screen_search.dart';
 
 class ScreenMainPage extends StatelessWidget {
-   ScreenMainPage({super.key});
+  ScreenMainPage({super.key});
 
-  final _pages=[
-    ScreenHome(),
-    ScreenNewandHot(),
-    ScreenFastLaughs(),
-    ScreenSearch(),
+  final _pages = [
+    const ScreenHome(),
+    const ScreenNewandHot(),
+    const ScreenFastLaughs(),
+    const ScreenSearch(),
     ScreenDownloads()
-   
   ];
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      
+    return Scaffold(
       backgroundColor: backgroundColor,
-     body: SafeArea(
-       child: ValueListenableBuilder(valueListenable: indexChangeNotifier, builder:(context,int index, _) {
-         return _pages[index];
-       },),
-     ),
-
-      
-      bottomNavigationBar: BottomNavigationWidget(),
+      body: SafeArea(
+        child: ValueListenableBuilder(
+          valueListenable: indexChangeNotifier,
+          builder: (context, int index, _) {
+            return _pages[index];
+          },
+        ),
+      ),
+      bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }

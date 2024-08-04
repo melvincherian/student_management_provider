@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/cores/colors/colors.dart';
 import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
@@ -13,7 +14,12 @@ class BackGroundCard extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 600,
-                
+                child:  CachedNetworkImage(imageUrl: 
+                homemainimage,
+                fit: BoxFit.cover,
+                placeholder: (context,Url)=>Center(child: CircularProgressIndicator()),
+                errorWidget: (context,Url,error)=>Center(child: Icon(Icons.error),),
+                ),
                 decoration:const BoxDecoration(image: DecorationImage(image: NetworkImage(homemainimage,))) ,
               ),
            const   Positioned(

@@ -1,12 +1,58 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/application/modelss/movie_model.dart';
+import 'package:netflix_clone_ui/controller/controller_movie.dart';
 import 'package:netflix_clone_ui/cores/colors/colors.dart';
 import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
 import 'package:netflix_clone_ui/presentations/new_and_hot/widgets/coming_soon_widget.dart';
 import 'package:netflix_clone_ui/presentations/new_and_hot/widgets/everyone_watching_widget.dart';
 
-class ScreenNewandHot extends StatelessWidget {
+class ScreenNewandHot extends StatefulWidget {
   const ScreenNewandHot({super.key});
+
+  @override
+  State<ScreenNewandHot> createState() => _ScreenNewandHotState();
+}
+
+class _ScreenNewandHotState extends State<ScreenNewandHot> {
+
+List upcomingMovies=[];
+List popularMovies=[];
+bool isLoading=true;
+bool isError=false;
+
+
+Future<void>upComingMovies()async{
+  try{
+    List movies=await MovieServices.getupComingMovies();
+    List popular=await MovieServices.getpopularMovies();
+
+
+    if(mounted){
+setState(() {
+  upcomingMovies=movies;
+  popularMovies=popular;
+  isLoading=false;
+});
+    }
+  }catch(e){
+    if (kDebugMode) {
+      print('Error fetching upcoming movies: $e');
+    }
+    if(mounted){
+      setState(() {
+        isError=true;
+        isLoading=false;
+      });
+    }
+  }
+}
+@override
+void initState(){
+  super.initState();
+  upComingMovies();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -63,23 +109,22 @@ class ScreenNewandHot extends StatelessWidget {
       ),
     );
   }
-  
+
  Widget _buildComingSoon() {
   
   return ListView.builder(
-    itemCount: 10,
-    itemBuilder: (BuildContext context, index)=>const ComingSoonWidget() 
+    itemCount: upcomingMovies.length,
+    itemBuilder: (BuildContext context, index)=> ComingSoonWidget(movies: upcomingMovies, index: index, coming: upcomingMovies[index],) 
     
   
     
   );
  }
-  
+
   _buildEveryoneWatching() {
     return ListView.builder(
       itemCount: 10,
-      itemBuilder: (BuildContext context,index)=>const EveryOneWatchingWidget());
+      itemBuilder: (BuildContext context,index)=> EveryOneWatchingWidget(movies:popularMovies, index: index, everyone: popularMovies[index],));
   }
-  
 }
 

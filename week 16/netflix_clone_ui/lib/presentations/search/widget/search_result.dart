@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/application/modelss/movie_model.dart';
 import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
 import 'package:netflix_clone_ui/presentations/search/widget/title.dart';
 
 const imageUrl="https://media.themoviedb.org/t/p/w220_and_h330_face/KoYWXbnYuS3b0GyQPkbuexlVK9.jpg";
 
 class SearchResultWidget extends StatelessWidget {
-  const SearchResultWidget({super.key});
+  final List<Movie>result;
+  const SearchResultWidget({super.key,required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class SearchResultWidget extends StatelessWidget {
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
           childAspectRatio: 1/1.4,
-          children: List.generate(20, (index){
-            return const MainCard();
+          children: List.generate(result.length, (index){
+            return  MainCard(url: result[index].imagepath);
           }),
           ))
       ],
@@ -31,13 +33,16 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  final String?url;
+  const MainCard({super.key,this.url});
 
   @override
   Widget build(BuildContext context) {
     return  Container(
           decoration: BoxDecoration(
-            image: DecorationImage(image: NetworkImage(imageUrl),
+            image: DecorationImage(image: NetworkImage(
+              imageUrl+url!
+            ),
             fit: BoxFit.cover
             ),
             borderRadius: BorderRadius.circular(7)

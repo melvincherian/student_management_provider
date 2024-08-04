@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/application/modelss/movie_model.dart';
 import 'package:netflix_clone_ui/cores/colors/colors.dart';
 import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
 import 'package:netflix_clone_ui/presentations/home/widgets/custom_button_widget.dart';
 import 'package:netflix_clone_ui/presentations/widgets/video_widget.dart';
 
 class EveryOneWatchingWidget extends StatelessWidget {
-  const EveryOneWatchingWidget({
-    super.key,
+   EveryOneWatchingWidget({
+    super.key,required this.movies,required this.index,required this.everyone
   });
+ List movies;
+ final int index;
+ final Movie everyone;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
     crossAxisAlignment: CrossAxisAlignment.start,      children: [
            constantHeight,
-          Text('Friends',
+          Text(everyone.title,
               style: TextStyle(fontSize: 20,
               fontWeight: FontWeight.bold,
              
               )
               ),
               constantHeight,
-            Text('This hit sitcom follows merry misadvantages of six 20-something pals as they navigate the pitfalls of work,life and love in 1990s Manhattam',
+            Text( everyone.overview,
               style: TextStyle(color: greyColor),
               ),
               constantHeight50,
-              VideoWidget(),
+              VideoWidget(image:movies[index].imagepath,),
               constantHeight,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

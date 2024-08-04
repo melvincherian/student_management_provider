@@ -5,8 +5,9 @@ import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
 class VideoWidget extends StatelessWidget {
   const VideoWidget({
     super.key,
+    required this.image
   });
-
+final String image;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -16,7 +17,8 @@ class VideoWidget extends StatelessWidget {
           
           height: 200,
           
-          child: Image.network(newAndHotTempImage,fit: BoxFit.cover,),
+          child: Image.network(imageBase+image,
+          fit: BoxFit.cover,),
         ),
          Positioned(
           bottom: 0,
