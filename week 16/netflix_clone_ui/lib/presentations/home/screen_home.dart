@@ -14,6 +14,7 @@ ValueNotifier<bool>scrollNotifier=ValueNotifier(true);
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
 
+
   @override
   State<ScreenHome> createState() => _ScreenHomeState();
 }
@@ -37,13 +38,13 @@ Future getAllMovies()async{
   });
 
 
-
 }
 @override
   void initState() {
     getAllMovies();
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ Future getAllMovies()async{
                 
                 constantHeight,
               NumberTitleCard(movies: upcoming,),
-                
+              
              Maintitlecard(
               title: "Tense Dramas",
               movies: upcoming,
@@ -110,7 +111,7 @@ Future getAllMovies()async{
                       ),
                      
                      const  Spacer(),
-          const   Icon(Icons.cast,
+        const   Icon(Icons.cast,
         color: Colors.white,
         size: 30,
         ),
@@ -144,19 +145,19 @@ Future getAllMovies()async{
                       Text('Categories',
                       style: constantHometitletext,
                       ),
-                    ],
-                  )
-                ],
+                     ],
+                   )
+                 ],
               ),
             ):constantHeight
           ],
-        ),
-      );
+         ),
+        );
       },
      ),
     );
-  }
-}
+   }
+ }
 
 
 

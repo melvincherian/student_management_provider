@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
 
-class MainCard extends StatelessWidget {
-  const MainCard({super.key,required this.image});
+class HomeMainCard extends StatelessWidget {
+  const HomeMainCard({super.key,required this.image});
  
  final String image;
    

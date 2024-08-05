@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/application/modelss/movie_model.dart';
 import 'package:netflix_clone_ui/cores/colors/colors.dart';
@@ -41,7 +43,7 @@ class ComingSoonWidget extends StatelessWidget {
         ),
         SizedBox(
           width: size.width - 50,
-          height: 500,
+          height: 498,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -89,14 +91,20 @@ class ComingSoonWidget extends StatelessWidget {
                   )
                 ],
               ),
-
               constantHeight,
-          const    Text('Coming on Friday'),
+              const Text('Coming on Friday'),
               constantHeight,
               Text(
-                coming.overview,
-                style:const TextStyle(color: greyColor),
+                coming.title,
+                style: const TextStyle(color: greyColor),
               ),
+              Flexible(
+                  child: Text(
+                coming.overview,
+                style:const TextStyle(
+                  color: greyColor,
+                ),
+              ))
             ],
           ),
         ),

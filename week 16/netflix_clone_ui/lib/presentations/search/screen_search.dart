@@ -11,7 +11,6 @@ import 'package:netflix_clone_ui/presentations/search/widget/search_idle.dart';
 import 'package:netflix_clone_ui/presentations/search/widget/search_result.dart';
 // import 'package:netflix_clone_ui/presentations/search/widget/search_result.dart';
 
-
 class ScreenSearch extends StatefulWidget {
   const ScreenSearch({super.key});
 
@@ -20,55 +19,53 @@ class ScreenSearch extends StatefulWidget {
 }
 
 class _ScreenSearchState extends State<ScreenSearch> {
-  final controller=TextEditingController();
-  
-  List<Movie>popular=[];
-  List<Movie>searchResults=[];
-  bool istapped=true;
+  final controller = TextEditingController();
 
-Future getPopular()async{
-  if(mounted){
-    popular =await MovieServices.getpopularMovies();
-    setState(() {
-      
-    });
+  List<Movie> popular = [];
+  List<Movie> searchResults = [];
+  bool istapped = true;
+
+  Future getPopular() async {
+    if (mounted) {
+      popular = await MovieServices.getpopularMovies();
+      setState(() {});
+    }
   }
- 
-}
- _onSearchChanges() async {
+
+
+
+  _onSearchChanges() async {
     if (controller.text.isEmpty) {
       setState(() {
         istapped = true;
         searchResults.clear();
       });
     } else {
-      await _fetchdatafromserver(controller.text);
+      await _fetchdatafromserver(controller.text);         
     }
   }
 
+  Future _fetchdatafromserver(String query) async {
+    List<Movie> result = await searchfunction(query);
+    setState(() {
+      istapped = false;
+      searchResults = result;
+    });
+  }
 
- Future _fetchdatafromserver(String query)async{
-  List<Movie>result=await searchfunction(query);
-  setState(() {
-    istapped=false;
-    searchResults=result;
-  });
- }
-
- @override
+  @override
   void initState() {
-    if(mounted){
+    if (mounted) {
       getPopular();
-      controller.text='';
-      
+      controller.text = '';
+
       super.initState();
       controller.addListener(_onSearchChanges);
       getPopular();
     }
-   
   }
 
- @override
+  @override
   void dispose() {
     controller.removeListener(_onSearchChanges);
     super.dispose();
@@ -76,49 +73,49 @@ Future getPopular()async{
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SafeArea(child: Padding(
-        padding:const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CupertinoSearchTextField(
-              onChanged: (value) {
-                setState(() {
-                  value.isEmpty ?istapped=true:istapped=false;
-                  _fetchdatafromserver(value);
-                });
-              },
+    return Scaffold(
+        body: SafeArea(
+            child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CupertinoSearchTextField(
+            onChanged: (value) {
+              setState(() {
+                value.isEmpty ? istapped = true : istapped = false;
+                _fetchdatafromserver(value);
+              });
+            },
 
-              backgroundColor: Colors.grey.withOpacity(.4),
-              prefixIcon:const Icon(
-                CupertinoIcons.search,
-                color: greyColor,
-              ),
-              suffixIcon:const Icon(
-                CupertinoIcons.xmark_circle_fill,
-                color:greyColor,
-              ),
-              style:const TextStyle(color:whiteColor),
-              // backgroundColor: Color.fromARGB(255, 60, 60, 60),
-              // prefixIcon: Icon(CupertinoIcons.search,color: Colors.grey,),
-              // suffixIcon: Icon(CupertinoIcons.xmark_circle_fill,color: Colors.grey,),
-              // style: TextStyle(
-              // color: whiteColor
-              // ),
+            backgroundColor: Colors.grey.withOpacity(.4),
+            prefixIcon: const Icon(
+              CupertinoIcons.search,
+              color: greyColor,
             ),
-          
-            constantHeight,
-            _isEmpty(controller.text),
-              // Expanded(child: SearchIdleWidget()),
-              //  Expanded(child: SearchResultWidget()),
-        
-          ],
-        ),
-      ))
-    );
+            suffixIcon: const Icon(
+              CupertinoIcons.xmark_circle_fill,
+              color: greyColor,
+            ),
+            style: const TextStyle(color: whiteColor),
+            // backgroundColor: Color.fromARGB(255, 60, 60, 60),
+            // prefixIcon: Icon(CupertinoIcons.search,color: Colors.grey,),
+            // suffixIcon: Icon(CupertinoIcons.xmark_circle_fill,color: Colors.grey,),
+            // style: TextStyle(
+            // color: whiteColor
+            // ),
+          ),
+
+          constantHeight,
+          _isEmpty(controller.text),
+          // Expanded(child: SearchIdleWidget()),
+          //  Expanded(child: SearchResultWidget()),
+        ],
+      ),
+    )));
   }
-    Widget _isEmpty(String value) {
+
+  Widget _isEmpty(String value) {
     return istapped
         ? Expanded(
             child: SearchIdleWidget(
@@ -131,35 +128,28 @@ Future getPopular()async{
   }
 }
 
+Future<List<Movie>> searchfunction(String query) async {
+  const apiKey = '7641fb4a59c62af98a9d9234b5b798bd';
+  const baseUrl = 'https://api.themoviedb.org/3/search/movie';
 
+  int maxtries = 3;
+  int mintries = 0;
+  while (maxtries > mintries) {
+    try {
+      final response =
+          await http.get(Uri.parse('$baseUrl?api_key=$apiKey&query=$query'));
 
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body)['results'];
 
-
-   Future<List<Movie>> searchfunction(String query) async {
-    const apiKey = '7641fb4a59c62af98a9d9234b5b798bd';
-    const baseUrl = 'https://api.themoviedb.org/3/search/movie';
-
-    int maxtries = 3;
-    int mintries = 0;
-    while (maxtries > mintries) {
-      try {
-        final response =
-           await http.get(Uri.parse('$baseUrl?api_key=$apiKey&query=$query'));
-          
-        if (response.statusCode == 200) {
-          final List<dynamic> data = jsonDecode(response.body)['results'];
-
-          return data
-              .map((json) => Movie.fromJson(json))
-              .toList()
-              .cast<Movie>();
-        }
-      } catch (e) {
-        if (kDebugMode) {
-          print('Error in fetching the data');
-        }
+        return data.map((json) => Movie.fromJson(json)).toList().cast<Movie>();
       }
-      mintries++;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error in fetching the data');
+      }
     }
-    return [];
+    mintries++;
   }
+  return [];
+}

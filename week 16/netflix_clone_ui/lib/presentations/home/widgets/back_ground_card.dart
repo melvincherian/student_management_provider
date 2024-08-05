@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, sort_child_properties_last
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/cores/colors/colors.dart';

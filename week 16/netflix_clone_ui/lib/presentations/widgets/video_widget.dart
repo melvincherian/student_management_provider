@@ -25,13 +25,13 @@ final String image;
           right: 10,
            child: CircleAvatar(
                              radius: 22,
-                             backgroundColor: Colors.black.withOpacity(0.5),
-                             child: IconButton(onPressed: (){}, icon:const Icon(Icons.volume_off,
-                             color: whiteColor,
-                             size: 20,
-                             )
-                             )
-                             ),
+                       backgroundColor: Colors.black.withOpacity(0.5),
+                       child: IconButton(onPressed: (){}, icon:const Icon(Icons.volume_off,
+                       color: whiteColor,
+                      size: 20,
+               )
+             )
+           ),
          ),
       ],
     );

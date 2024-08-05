@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:netflix_clone_ui/application/modelss/movie_model.dart';
+// import 'package:netflix_clone_ui/application/modelss/movie_model.dart';
 import 'package:netflix_clone_ui/controller/controller_movie.dart';
 import 'package:netflix_clone_ui/cores/colors/colors.dart';
 import 'package:netflix_clone_ui/cores/colors/constant_size.dart';
