@@ -11,32 +11,62 @@ class DeleteDialog {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Delete'),
-            titleTextStyle: const TextStyle(
-                color: Color.fromARGB(255, 238, 43, 43),
-                fontSize: 20,
-                fontFamily: 'poppins',
-                fontWeight: FontWeight.bold),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
+            title: const Text(
+              'Delete Student',
+              style: TextStyle(
+                  color: Color(0xFFD32F2F),
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+            content: const Text(
+              'Are you sure you want to delete this student? This action cannot be undone.',
+              style: TextStyle(fontSize: 16, fontFamily: 'Poppins'),
+            ),
             actions: [
               TextButton(
-                  onPressed: () {
-                    // deleteStudent(student.id);
-                    deleteStudent(student.id);
-                    Get.back();
-                    Get.to(const Homepage());
-                  },
-                  child: const Text(
-                    'YES',
-                    style: TextStyle(fontFamily: 'poppins,', fontSize: 15),
-                  )),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  backgroundColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                onPressed: () {
+                  deleteStudent(student.id);
+                  Get.back();
+                  Get.to(const Homepage());
+                },
+                child: const Text(
+                  'YES',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
               TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: const Text(
-                    'NO',
-                    style: TextStyle(fontFamily: 'poppins', fontSize: 15),
-                  ))
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: Colors.grey.shade300),
+                  ),
+                ),
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text(
+                  'NO',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
             ],
           );
         });

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:student_managament_getx/cores/colors.dart';
 import 'package:student_managament_getx/cores/constant.dart';
 import 'package:student_managament_getx/databasee/db_functions.dart';
 import 'package:student_managament_getx/model/model.dart';
@@ -181,7 +182,12 @@ class _ScreenUpdateState extends State<ScreenUpdate> {
                           }
                         }
                       },
-                      child: const Text('Submit'))
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue
+                      ),
+                      child: const Text('Submit',
+                      style: TextStyle(color: whitecolor),
+                      ))
                 ],
               ),
             )),

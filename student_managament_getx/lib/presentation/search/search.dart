@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -26,8 +28,8 @@ class _ScreenSearchState extends State<ScreenSearch> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Search students',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          'Search Students',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
         ),
       ),
       body: Column(
@@ -40,19 +42,22 @@ class _ScreenSearchState extends State<ScreenSearch> {
                 studentController.search(value);
               },
               decoration: InputDecoration(
-                  labelText: 'Search',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8))),
+                labelText: 'Search here..',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
             ),
           ),
-          Expanded(child: Obx(() {
-            if (studentController.students.isEmpty) {
-              return const Center(
-                child: Text('No students found '),
-              );
-            } else {
-              return ListView.separated(
+          Expanded(
+            child: Obx(() {
+              if (studentController.filteredStudents.isEmpty) {
+                return const Center(
+                  child: Text('No students found'),
+                );
+              } else {
+                return ListView.separated(
                   separatorBuilder: (context, index) => constantheigtht10,
                   itemCount: studentController.filteredStudents.length,
                   itemBuilder: (context, index) {
@@ -66,63 +71,94 @@ class _ScreenSearchState extends State<ScreenSearch> {
                       },
                       child: Container(
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: backgroundcolor,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: const [
-                              BoxShadow(color: Colors.black, spreadRadius: 2)
-                            ]),
-                        child: Column(
+                          color: backgroundcolor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Container(
-                                width: 120,
-                                height: 120,
-                                decoration: BoxDecoration(
+                            if (student.image != null &&
+                                student.image.isNotEmpty &&
+                                File(student.image).existsSync())
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  width: 120,
+                                  height: 120,
+                                  decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: FileImage(File(student.image)),
-                                        fit: BoxFit.cover)),
+                                      image: FileImage(File(student.image)),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            else
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  width: 120,
+                                  height: 120,
+                                  color: Colors.grey,
+                                  child: const Icon(
+                                    Icons.person,
+                                    size: 80,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 36,
-                            ),
+                            const SizedBox(width: 36),
                             Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  student.name,
-                                  style: const TextStyle(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    student.name ?? 'name',
+                                    style: const TextStyle(
                                       fontSize: 24,
                                       color: whitecolor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Course:${student.course}',
-                                  style: const TextStyle(
-                                      color: whitecolor, fontSize: 18),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Age:${student.age}',
-                                  style: const TextStyle(
-                                      color: whitecolor, fontSize: 18),
-                                )
-                              ],
-                            ))
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Course: ${student.course ?? 'course'}',
+                                    style: const TextStyle(
+                                      color: whitecolor,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Age: ${student.age ?? 'age'}',
+                                    style: const TextStyle(
+                                      color: whitecolor,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     );
-                  });
-            }
-          }))
+                  },
+                );
+              }
+            }),
+          ),
         ],
       ),
     );

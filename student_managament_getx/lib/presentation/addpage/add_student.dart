@@ -163,26 +163,28 @@ class _AddStudentState extends State<AddStudent> {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           if (pickImage.value.isEmpty) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(
-                                  const SnackBar(
-                                    backgroundColor: Colors.red,
-                              content: Text('Please select an image',
-                              style: TextStyle(color: whitecolor),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                  'Please select an image',
+                                  style: TextStyle(color: whitecolor),
+                                ),
+                                duration: Duration(seconds: 3),
                               ),
-                              duration: Duration(seconds: 3),
-                            ));
+                            );
+                          } else {
+                            addStudentButtonClicked();
+                            Get.back();
                           }
-                        } else {
-                          addStudentButtonClicked();
-                          Get.back();
                         }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
-                      child: const Text('Submit',
-                      style: TextStyle(color: whitecolor,fontSize: 18),
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(color: whitecolor, fontSize: 18),
                       ))
                 ],
               ),

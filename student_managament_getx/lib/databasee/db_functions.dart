@@ -23,7 +23,7 @@ Future initDatabase() async {
 Future<void> addStudent(StudentModel value) async {
  
   await db.rawInsert(
-      'INSERT INTO student(name,age,place,course,image,phone,)VALUES(? ? ? ? ? ?)',
+      'INSERT INTO student(name,age,place,course,image,phone)VALUES(?, ?, ? ,? ,? ,?)',
       [
         value.name,
         value.age,
@@ -51,7 +51,7 @@ Future<List<StudentModel>> getAllStudents() async {
 
 updateStudent(StudentModel value) async {
   await db.rawUpdate(
-      'UPDATE student SET name=?,age =?,place =?,course=?,image =?,phone =?,WHERE id=?',
+      'UPDATE student SET name=?,age =?,place =?,course=?,image =?,phone =?WHERE id=?',
       [
         value.name,
         value.age,
@@ -61,7 +61,7 @@ updateStudent(StudentModel value) async {
         value.phone,
         value.id,
       ]);
-  getAllStudents();
+     getAllStudents();
 }
 
 Future<void> deleteStudent(int? studentId) async {
@@ -72,7 +72,7 @@ Future<void> deleteStudent(int? studentId) async {
 Future<List<StudentModel>> searchStudents(String query) async {
   final value = await db.rawQuery(
     'SELECT * FROM student WHERE name LIKE ? OR course LIKE ?',
-    ['%$query', '%$query'],
+    ['%$query%', '%$query%'],
   );
 
   List<StudentModel> searchResults =
